@@ -4,6 +4,10 @@
 	{
 		Quit = 0,
 		Look,
+		North,
+		South,
+		East,
+		West,
 		Unknown,
 	}
 }
