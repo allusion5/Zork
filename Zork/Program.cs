@@ -18,6 +18,7 @@ namespace Zork
 				{
 					case Commands.Quit:
 						outputString = "Thank you for playing!";
+						isRunning = false;
 						break;
 					case Commands.Look:
 						outputString = "This is an open field west of a white house, with a boarded front door.\nA rubber mat saying 'Welcome to Zork!' lies by the door.";
@@ -26,11 +27,10 @@ namespace Zork
 					case Commands.South:
 					case Commands.East:
 					case Commands.West:
-						outputString = $"You moved {command}.";
+						outputString = $"You moved {inputString}.";
 						break;
 					default:
 						outputString = $"Unrecognized command: {inputString}";
-						isRunning = false;
 						break;
 				}
 				Console.WriteLine(outputString);
