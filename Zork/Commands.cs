@@ -2,12 +2,12 @@
 {
 	public enum Commands
 	{
-		Quit = 0,
-		Look,
-		North,
-		South,
-		East,
-		West,
-		Unknown,
+		QUIT = 0,
+		LOOK,
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST,
+		UNKNOWN,
 	}
 }
