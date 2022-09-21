@@ -6,16 +6,18 @@ namespace Zork
 {
 	class Room
 	{
-		public string Name { get; }
-		public string Description { get; set; }
-		public Room(string name, string description = "")
+		private string _rName;
+		public string rName	{ get;set;}
+		public string rDescription { get; set; }
+
+		public Room(string name, string desc=null)
 		{
-			Name = name;
-			Description = description;
+			rName = name;
+			rDescription = desc;
 		}
 		public override string ToString()
 		{
-			return Name;
+			return rName;
 		}
 	}
 }
