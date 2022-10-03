@@ -1,30 +1,21 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
 
 namespace Zork
 {
 	class Program
 	{
-		private static readonly Dictionary<string, Room> roomMap;
-
-		static Program()
-		{
-			roomMap = new Dictionary<string, Room>();
-			foreach (Room room in _rooms)
-			{
-				roomMap[room.rName]=room;
-			}
-		}
+		private static Room[,] _rooms;
 		private static Room CurrentRoom
 		{
 			get { return _rooms[_currentRow, _currentColumn]; }
 		}
 		static void Main(string[] args)
 		{
-			string roomsFilename = args.Length > 0?args[0]:@"Content\Rooms.txt";
-			InitRoomDescs(roomsFilename);
+			string roomsFilename = args.Length > 0?args[0]:@"Content\Rooms.json";
+			InitRooms(roomsFilename);
 			Console.WriteLine("Welcome to Zork!");
 
 			bool isRunning = true;
@@ -101,32 +92,14 @@ namespace Zork
 			}
 			return didMove;
 		}
-		private static void InitRoomDescs(string roomsFilename)
-		{
-			const string fieldDelimiter = "##";
-			const int expectedFieldCount = 2;
-			var roomQuery = from line in File.ReadLines(roomsFilename)
-							let fields = line.Split(fieldDelimiter)
-							where fields.Length == expectedFieldCount
-							select (Name: fields[(int)Fields.Name],
-							Description: fields[(int)Fields.Description]);
-			foreach(var(Name,Description) in roomQuery)
-			{
-				roomMap[Name].rDescription = Description;
-			}
+		private static void InitRooms(string roomsFilename)=>
+			_rooms = JsonConvert.DeserializeObject<Room[,]>(File.ReadAllText(roomsFilename));
 
-		}
 		private enum Fields
 		{
-			Name=0,
-			Description
+			rName=0,
+			rDescription
 		}
-		private static readonly Room[,] _rooms =
-		{
-			{new Room("Rocky Trail"), new Room("South of House"), new Room("Canyon View") },
-			{new Room("Forest"), new Room("West of House"), new Room("Behind House")},
-			{new Room("Dense Woods"), new Room("North of House"),new Room("Clearing") }
-		};
 		private static int _currentRow = 1;
 		private static int _currentColumn = 1;
 	}

@@ -1,0 +1,44 @@
+﻿[
+	[
+		{
+			"rName": "Rocky Trail",
+			"rDescription": "You are on a rock-strewn trail."
+		},
+		{
+			"rName": "South of House",
+			"rDescription": "You are facing the south side of a white house. There is no door here, and all the windows are barred."
+		},
+		{
+			"rName": "Canyon View",
+			"rDescription": "You are at the top of the Great Canyon on its south wall."
+		}
+	],
+	[
+		{
+			"rName": "Forest",
+			"rDescription": "This is a forest, with trees in directions all around you."
+		},
+		{
+			"rName": "West of House",
+			"rDescription": "This is an open field west of a white house, with a boarded front door."
+		},
+		{
+			"rName": "Behind House",
+			"rDescription": "You are behind a white house. In one corner of the house there is a small window which is slightly ajar."
+		}
+	],
+	[
+		{
+			"rName": "Dense Woods",
+			"rDescription": "This is a dimly lit forest, with large trees all around. To the east, there appears to be sunlight."
+		},
+		{
+			"rName": "North of House",
+			"rDescription": "You are facing the north side of a white house. There is no door here, and all the windows are barred."
+		},
+		{
+			"rName": "Clearing",
+			"rDescription": "You are in a clearing, with a forest surrounding you on the west and south."
+		}
+	]
+]
