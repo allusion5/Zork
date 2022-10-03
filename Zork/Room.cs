@@ -6,7 +6,6 @@ namespace Zork
 {
 	class Room
 	{
-		private string _rName;
 		public string rName	{ get;set;}
 		public string rDescription { get; set; }
 
