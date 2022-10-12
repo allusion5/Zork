@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Zork
@@ -28,7 +27,7 @@ namespace Zork
 				Console.WriteLine($"{_player.Location}");
 				if (prevRoom != _player.Location)
 				{
-					Console.WriteLine(_player.Location.rDescription);
+					Console.WriteLine(_player.Location.Description);
 					prevRoom = _player.Location;
 				}
 				Console.Write("> ");
@@ -41,7 +40,7 @@ namespace Zork
 						isRunning = false;
 						break;
 					case Commands.LOOK:
-						Console.WriteLine(_player.Location.rDescription);
+						Console.WriteLine(_player.Location.Description);
 						break;
 					case Commands.NORTH:
 					case Commands.SOUTH:

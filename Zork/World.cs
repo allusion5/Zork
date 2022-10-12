@@ -14,7 +14,7 @@ namespace Zork
 		[OnDeserialized]
 		private void OnDeserialized(StreamingContext context)
 		{
-			mRoomsByName = Rooms.ToDictionary(room => room.rName, room=>room);
+			mRoomsByName = Rooms.ToDictionary(room => room.Name, room=>room);
 			foreach (Room room in Rooms)
 			{
 				room.UpdateNeighbors(this);

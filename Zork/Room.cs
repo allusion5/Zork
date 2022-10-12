@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System;
 using Newtonsoft.Json;
 
 namespace Zork
@@ -8,9 +7,9 @@ namespace Zork
 	public class Room
 	{
 		[JsonProperty(Order = 1)]
-		public string rName	{ get;set;}
+		public string Name	{ get;set;}
 		[JsonProperty(Order = 2)]
-		public string rDescription { get; set; }
+		public string Description { get; set; }
 		[JsonProperty(PropertyName = "Neighbors",Order = 3)]
 		private Dictionary<Directions, string> NeighborNames { get; set; }
 
@@ -26,13 +25,13 @@ namespace Zork
 			{
 				return false;
 			}
-			return lhs.rName==rhs.rName;
+			return lhs.Name == rhs.Name;
 		}
 		public static bool operator !=(Room lhs, Room rhs) => !(lhs == rhs);
 		public override bool Equals(object obj) => obj is Room room ? this == room : false;
 		public bool Equal(Room other) => this == other;
-		public override string ToString() => rName;
-		public override int GetHashCode()=>rName.GetHashCode();
+		public override string ToString() => Name;
+		public override int GetHashCode()=> Name.GetHashCode();
 		public void UpdateNeighbors(World world)=>Neighbors = (from entry in NeighborNames
 															   let room = world.RoomsByName.GetValueOrDefault(entry.Value)
 															   where room!= null

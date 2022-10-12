@@ -14,7 +14,7 @@ namespace Zork
 		{
 			get
 			{
-				return Location?.rName;
+				return Location?.Name;
 			}
 			set
 			{
