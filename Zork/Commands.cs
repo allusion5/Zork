@@ -9,5 +9,7 @@
 		EAST,
 		WEST,
 		UNKNOWN,
+		SCORE,
+		REWARD
 	}
 }

@@ -6,6 +6,8 @@ namespace Zork
 {
 	public class Game
 	{
+		private static int Score { get; set; }
+		private static int Moves { get; set; }
 		public World _world { get; set; }
 		[JsonIgnore]
 		public Player _player { get; set; }
@@ -20,6 +22,7 @@ namespace Zork
 
 		public void Run()
 		{
+			Score = Moves = 0;
 			isRunning = true;
 			Room prevRoom = null;
 			while (isRunning)
@@ -52,10 +55,18 @@ namespace Zork
 							Console.WriteLine("The way is shut!");
 						}
 						break;
+					case Commands.SCORE:
+						Console.WriteLine($"Your score is {Score}, in {Moves} move(s).");
+						break;
+					case Commands.REWARD:
+						Score++;
+						break;
 					default:
 						Console.WriteLine($"Unrecognized command: {inputString.ToUpper()}");
 						break;
 				}
+				Moves++;
+				Score++;
 			}
 		}
 
