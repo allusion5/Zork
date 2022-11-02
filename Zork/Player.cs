@@ -6,7 +6,7 @@ namespace Zork
 {
 	public class Player
 	{
-		public World _world { get; }
+		public World World { get; }
 		[JsonIgnore]
 		public Room Location { get; private set; }
 		[JsonIgnore]
@@ -18,12 +18,12 @@ namespace Zork
 			}
 			set
 			{
-				Location = _world?.RoomsByName.GetValueOrDefault(value);
+				Location = World?.RoomsByName.GetValueOrDefault(value);
 			}
 		}
 		public Player (World world, string startingLocation)
 		{
-			_world = world;
+			World = world;
 			LocationName = startingLocation;
 		}
 		public bool Move(Directions direction)

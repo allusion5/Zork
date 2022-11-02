@@ -8,7 +8,7 @@ namespace Zork
 	{
 		private static int Score { get; set; }
 		private static int Moves { get; set; }
-		public World _world { get; set; }
+		public World World { get; set; }
 		[JsonIgnore]
 		public Player _player { get; set; }
 		[JsonIgnore]
@@ -16,7 +16,7 @@ namespace Zork
 
 		public Game(World world, Player player)
 		{
-			_world = world;
+			World = world;
 			_player = player;
 		}
 
@@ -44,6 +44,10 @@ namespace Zork
 						break;
 					case Commands.LOOK:
 						Console.WriteLine(_player.Location.Description);
+						foreach(Item item in _player.Location.InventoryNames)
+						{
+							Console.WriteLine(item.Worl);
+						}
 						break;
 					case Commands.NORTH:
 					case Commands.SOUTH:
@@ -73,7 +77,7 @@ namespace Zork
 		public static Game Load(string filename)
 		{
 			Game _game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(filename));
-			_game._player = _game._world.SpawnPlayer();
+			_game._player = _game.World.SpawnPlayer();
 			return _game;
 		}
 

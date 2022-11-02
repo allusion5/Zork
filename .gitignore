@@ -1,3 +1,8 @@
 .vs/
 Zork/bin/
 Zork/obj/
+Zork.Cli/bin/
+Zork.Common/obj/
+Zork.Common/bin/
+Zork.Cli/obj/
+
