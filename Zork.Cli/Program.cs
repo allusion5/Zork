@@ -12,7 +12,6 @@ namespace Zork.Cli
 			const string defaultRoomsFilename = @"Content\Game.json";
 			string gameFilename = (args.Length > 0 ? args[(int)CommandLineArguments.GameFilename] : defaultRoomsFilename);
 
-			// Game Data loaded here from Json
 			Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(gameFilename));
 
 			var output = new ConsoleOutputService();

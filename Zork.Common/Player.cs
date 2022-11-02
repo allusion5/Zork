@@ -26,14 +26,9 @@ namespace Zork.Common
 		private Room _currentRoom;
 		public bool Move(Directions direction)
 		{
-			//bool isValid = true;
-			//Room neighbor = null;
-			Console.WriteLine(_currentRoom.Neighbors[Directions.North]);
-
 			bool isValid = _currentRoom.Neighbors.TryGetValue(direction, out Room neighbor);
 			if (isValid)
 			{
-				Console.WriteLine("YES YOU MOVED");
 				CurrentRoom = neighbor;
 			}
 			return isValid;
