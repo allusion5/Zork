@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 
 namespace Zork.Common
 {
@@ -21,13 +23,19 @@ namespace Zork.Common
 			Output = output;
 			Room prevRoom = null;
 			bool isRunning = true;
+			bool looking = false;
 			Score = Moves = 0;
 			while (isRunning)
 			{
 				Output.WriteLine(Player.CurrentRoom);
+				var roomInventory = Player.CurrentRoom.InventoryNames;
 				if (prevRoom != Player.CurrentRoom)
 				{
 					Output.WriteLine(Player.CurrentRoom.Description);
+					foreach (Item item in Player.CurrentRoom.Inventory)
+					{
+						Output.WriteLine(item.Description);
+					}
 					prevRoom = Player.CurrentRoom;
 				}
 				Output.Write("> ");
@@ -60,6 +68,7 @@ namespace Zork.Common
 						break;
 					case Commands.LOOK:
 						outputString = Player.CurrentRoom.Description;
+						looking = true;
 						break;
 					case Commands.NORTH:
 					case Commands.SOUTH:
@@ -83,22 +92,89 @@ namespace Zork.Common
 						outputString = null;
 						break;
 					case Commands.TAKE:
-						//TODO
-						outputString = null;
+						if(subject!= null)
+						{
+							bool subjectMatch = false;
+							foreach (Item item in Player.CurrentRoom.Inventory)
+							{
+								if (subject.ToUpper().Trim() == item.Name.ToUpper())
+								{
+									Player.Inventory.Add(item);
+									Player.CurrentRoom.Inventory.Remove(item);
+									subjectMatch = true;
+									break;
+								}
+							}
+							if (subjectMatch)
+							{
+								outputString = "Taken.";
+							}
+							else
+							{
+								outputString = "You don't see any such thing.";
+							}
+
+						}
+						else
+						{
+							outputString = "This command requires a subject.";
+						}
 						break;
 					case Commands.DROP:
-						//TODO
-						outputString = null;
+						if (subject != null)
+						{
+							bool subjectMatch = false;
+							foreach (Item item in Player.Inventory)
+							{
+								if (subject.ToUpper().Trim() == item.Name.ToUpper())
+								{
+									Player.CurrentRoom.Inventory.Add(item);
+									Player.Inventory.Remove(item);
+									subjectMatch = true;
+									break;
+								}
+							}
+							if (subjectMatch)
+							{
+								outputString = "Dropped.";
+							}
+							else
+							{
+								outputString = "You don't see any such thing.";
+							}
+						}
+						else
+						{
+							outputString = "This command requires a subject.";
+						}
 						break;
 					case Commands.INVENTORY:
-						//TODO
-						outputString = null;
+						if(Player.Inventory.Count != 0)
+						{
+							foreach (Item item in Player.Inventory)
+							{
+								Output.WriteLine(item.Description);
+							}
+							outputString = null;
+						}
+						else
+						{
+							outputString = "You are empty-handed.";
+						}
 						break;
 					default:
 						outputString=$"Unrecognized command: {inputString.ToUpper()}";
 						break;
 				}
 				Output.WriteLine(outputString);
+				if (looking)
+				{
+					foreach (Item item in Player.CurrentRoom.Inventory)
+					{
+						Output.WriteLine(item.Description);
+					}
+				}
+				looking = false;
 				Moves++;
 				Score++;
 			}

@@ -11,7 +11,7 @@
         "Description": "There is a small mailbox here."
       },
       {
-        "Name": "PileOfLeaves",
+        "Name": "Leaves",
         "Description": "There is a pile of leaves here."
       }
     ],
@@ -87,7 +87,7 @@
           "South": "Forest 3"
         },
         "InventoryNames": [
-          "PileOfLeaves"
+          "Leaves"
         ]
       }
     ]

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System;
 
 
 namespace Zork.Common
@@ -16,7 +17,7 @@ namespace Zork.Common
 		[JsonIgnore]
 		public List<Item> Inventory { get; private set; }
 		[JsonProperty]
-		private string[] InventoryNames { get; set; }
+		public string[] InventoryNames { get; set; }
 
 		public Room(string name, string description, Dictionary<Directions, string> neighborNames, string[] inventoryNames)
 		{
@@ -71,8 +72,6 @@ namespace Zork.Common
 			{
 				Inventory.Add(world.ItemsByName[inventoryName]);
 			}
-
-			InventoryNames = null;
 		}
 	}
 }
