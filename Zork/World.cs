@@ -7,6 +7,8 @@ namespace Zork
 {
 	public class World
 	{
+		[JsonIgnore]
+		public Dictionary<string, Item> ItemsByName { get; }
 		public HashSet<Room> Rooms { get; set; }
 		[JsonIgnore]
 		public IReadOnlyDictionary<string, Room> RoomsByName => mRoomsByName;

@@ -12,9 +12,19 @@ namespace Zork
 		public string Description { get; set; }
 		[JsonProperty(PropertyName = "Neighbors",Order = 3)]
 		private Dictionary<Directions, string> NeighborNames { get; set; }
-
 		[JsonIgnore]
 		public IReadOnlyDictionary<Directions, Room> Neighbors { get; private set; }
+		[JsonProperty(PropertyName = "InventoryNames", Order = 4)]
+		private  { get; set; }
+
+	public Room(string name, string description, Dictionary<Directions, string> neighborNames, string InventoryNames)
+		{
+			Name = name;
+			Description = description;
+			NeighborNames = neighborNames;
+
+
+		}
 		public static bool operator ==(Room lhs, Room rhs)
 		{
 			if (ReferenceEquals(lhs, rhs))
@@ -36,6 +46,11 @@ namespace Zork
 															   let room = world.RoomsByName.GetValueOrDefault(entry.Value)
 															   where room!= null
 															   select (Direction: entry.Key, Room: room)).ToDictionary(pair=>pair.Direction,pair=>pair.Room);
+		public void UpdateInventory (World world)
+		{
+			Inventory = new 
+			InventoryNames = null;
+		}
 
 
 	}
