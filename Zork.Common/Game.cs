@@ -44,6 +44,8 @@ namespace Zork.Common
 
 			string verb;
 			string subject = null;
+
+			bool validMove = true;
 			if (commandTokens.Length == 0)
 			{
 				return;
@@ -91,6 +93,7 @@ namespace Zork.Common
 					if (string.IsNullOrEmpty(subject))
 					{
 						Output.WriteLine("This command requires a subject.");
+						validMove = false;
 					}
 					else
 					{
@@ -101,6 +104,7 @@ namespace Zork.Common
 					if (string.IsNullOrEmpty(subject))
 					{
 						Output.WriteLine("This command requires a subject.");
+						validMove = false;
 					}
 					else
 					{
@@ -123,10 +127,14 @@ namespace Zork.Common
 					break;
 				default:
 					Output.WriteLine($"Unrecognized command: {inputString.ToUpper()}");
+					validMove = false;
 					break;
 			}
-			Moves++;
-			Score++;
+			if (validMove)
+			{
+				Moves++;
+			}
+			validMove = true;
 		}
 		private void Look()
 		{
