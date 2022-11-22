@@ -1,25 +1,27 @@
 ﻿using UnityEngine;
 using Zork.Common;
 using TMPro;
+using System.Collections.Generic;
 
 public class UnityOutputService : MonoBehaviour,IOutputService
 {
-    public void Write(object value) => Write(value.ToString());
+    [SerializeField]
+    private TextMeshProUGUI TextPrefab;
+    [SerializeField]
+    private Transform contentGUITransform;
+    public void Write(object value) => ParseAndWriteLine(value.ToString());
 
-    public void Write(string value)
-    {
-        OutputText.text = value;
+    public void Write(string value) => ParseAndWriteLine(value.ToString());
+
+    public void WriteLine(object value) => ParseAndWriteLine(value.ToString());
+
+    public void WriteLine(string value) => ParseAndWriteLine(value.ToString());
+
+    private void ParseAndWriteLine(string value)
+	{
+        var outputText = Instantiate(TextPrefab, contentGUITransform);
+        outputText.text = value;
     }
 
-    public void WriteLine(object value) => WriteLine(value.ToString());
 
-    public void WriteLine(string value)
-    {
-        OutputText.text = value;
-        Instantiate(OutputText, parent.transform);
-    }
-    [SerializeField]
-    private TextMeshProUGUI OutputText;
-    [SerializeField]
-    private GameObject parent;
 }
