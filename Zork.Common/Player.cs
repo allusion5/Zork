@@ -10,7 +10,7 @@ namespace Zork.Common
 			get => _currentRoom;
 			set => _currentRoom = value;
 		}
-		public List<Item> Inventory { get; }
+		public IEnumerable<Item> Inventory => _inventory;
 		public Player(World world, string startingLocation)
 		{
 			_world = world;
@@ -20,10 +20,8 @@ namespace Zork.Common
 				throw new Exception($"Invalid starting location: {startingLocation}");
 			}
 
-			Inventory = new List<Item>();
+			_inventory = new List<Item>();
 		}
-		private World _world;
-		private Room _currentRoom;
 		public bool Move(Directions direction)
 		{
 			bool isValid = _currentRoom.Neighbors.TryGetValue(direction, out Room neighbor);
@@ -33,5 +31,26 @@ namespace Zork.Common
 			}
 			return isValid;
 		}
+		public void AddItemToInventory(Item itemToAdd)
+		{
+			if (_inventory.Contains(itemToAdd))
+			{
+				throw new Exception($"Item {itemToAdd} already exists in inventory.");
+			}
+			_inventory.Add(itemToAdd);
+		}
+		public void RemoveItemFromInventory(Item itemToRemove)
+		{
+			if (_inventory.Remove(itemToRemove)==false)
+			{
+				throw new Exception("Could not remove item from inventory.");
+			}
+			_inventory.Remove(itemToRemove);
+		}
+
+		private readonly World _world;
+		private Room _currentRoom;
+		private readonly List<Item> _inventory;
+
 	}
 }

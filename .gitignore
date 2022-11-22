@@ -5,4 +5,9 @@ Zork.Cli/bin/
 Zork.Common/obj/
 Zork.Common/bin/
 Zork.Cli/obj/
+Zork.Unity/Library/
+Zork.Unity/Logs/
+Zork.Unity/Temp/
+Zork.Unity/*.csproj
+Zork.Unity/*.sln
 

@@ -10,12 +10,12 @@ namespace Zork.Common
 		public string Name { get; }
 		public string Description { get; set; }
 		[JsonIgnore]
-		public Dictionary<Directions, Room> Neighbors { get; private set; }
+		public IReadOnlyDictionary<Directions, Room> Neighbors => _neighbors;
 
 		[JsonProperty(PropertyName = "Neighbors", Order = 3)]
 		private Dictionary<Directions, string> NeighborNames { get; set; }
 		[JsonIgnore]
-		public List<Item> Inventory { get; private set; }
+		public List<Item> Inventory => _inventory;
 		[JsonProperty]
 		public string[] InventoryNames { get; set; }
 
@@ -24,7 +24,10 @@ namespace Zork.Common
 			Name = name;
 			Description = description;
 			NeighborNames = neighborNames ?? new Dictionary<Directions, string>();
+			_neighbors = new Dictionary<Directions, Room>();
+
 			InventoryNames = inventoryNames ?? new string[0];
+			_inventory = new List<Item>();
 		}
 		public static bool operator ==(Room lhs, Room rhs)
 		{
@@ -56,10 +59,9 @@ namespace Zork.Common
 		}
 		public void UpdateNeighbors(World world)
 		{
-			Neighbors = new Dictionary<Directions, Room>();
 			foreach (var neighborName in NeighborNames)
 			{
-				Neighbors.Add(neighborName.Key, world.RoomsByName[neighborName.Value]);
+				_neighbors.Add(neighborName.Key, world.RoomsByName[neighborName.Value]);
 			}
 
 			NeighborNames = null;
@@ -67,11 +69,30 @@ namespace Zork.Common
 
 		public void UpdateInventory(World world)
 		{
-			Inventory = new List<Item>();
 			foreach (var inventoryName in InventoryNames)
 			{
 				Inventory.Add(world.ItemsByName[inventoryName]);
 			}
+			//InventoryNames = null;
 		}
+		public void AddItemToInventory(Item itemToAdd)
+		{
+			if (_inventory.Contains(itemToAdd))
+			{
+				throw new Exception($"Item {itemToAdd} already exists in inventory.");
+			}
+
+			_inventory.Add(itemToAdd);
+		}
+		public void RemoveItemFromInventory(Item itemToRemove)
+		{
+			if (_inventory.Remove(itemToRemove) == false)
+			{
+				throw new Exception("Could not remove item from inventory.");
+			}
+		}
+
+		private readonly List<Item> _inventory;
+		private readonly Dictionary<Directions, Room> _neighbors;
 	}
 }
