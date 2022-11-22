@@ -10,7 +10,10 @@ namespace Zork.Cli
 		public void ProcessInput()
 		{
 			string inputString = Console.ReadLine();
-			InputReceived?.Invoke(this, inputString);
+			if (string.IsNullOrWhiteSpace(inputString)==false)
+			{
+				InputReceived?.Invoke(this, inputString);
+			}
 		}
 	}
 }

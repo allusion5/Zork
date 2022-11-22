@@ -6,19 +6,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string ZorkGameJsonFileAssetName = "Game";
     [SerializeField]
-    private UnityOutputService Output;
+    private UnityOutputService OutputService;
+    [SerializeField]
+    private UnityInputService InputService;
     
     void Awake()
     {
         TextAsset gameJsonAsset =Resources.Load<TextAsset>(ZorkGameJsonFileAssetName);
-        
-    }
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
+        Game.Start(gameJsonAsset.text, InputService, OutputService);
     }
 }

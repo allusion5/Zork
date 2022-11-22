@@ -24,6 +24,11 @@ namespace Zork.Common
 			World = world;
 			Player = new Player(World, startingLocation);
 		}
+		public static void Start(string gameFileName, IInputService input, IOutputService output)
+		{
+			Game game = JsonConvert.DeserializeObject<Game>(gameFileName);
+			game.Run(input, output);
+		}
 		public void Run(IInputService input, IOutputService output)
 		{
 			Input = input ?? throw new ArgumentNullException(nameof(input));
@@ -113,11 +118,11 @@ namespace Zork.Common
 				case Commands.INVENTORY:
 					if (Player.Inventory.Count() == 0)
 					{
-						Console.WriteLine("You are empty handed.");
+						Output.WriteLine("You are empty handed.");
 					}
 					else
 					{
-						Console.WriteLine("You are carrying:");
+						Output.WriteLine("You are carrying:");
 						foreach (Item item in Player.Inventory)
 						{
 							Output.WriteLine(item.InventoryDescription);
@@ -133,7 +138,6 @@ namespace Zork.Common
 			{
 				Moves++;
 			}
-			validMove = true;
 		}
 		private void Look()
 		{
@@ -149,13 +153,13 @@ namespace Zork.Common
 			Item itemToTake = Player.CurrentRoom.Inventory.FirstOrDefault(item => string.Compare(item.Name, itemName, ignoreCase: true) == 0);
 			if (itemToTake == null)
 			{
-				Console.WriteLine("You can't see any such thing.");
+				Output.WriteLine("You can't see any such thing.");
 			}
 			else
 			{
 				Player.AddItemToInventory(itemToTake);
 				Player.CurrentRoom.RemoveItemFromInventory(itemToTake);
-				Console.WriteLine("Taken.");
+				Output.WriteLine("Taken.");
 			}
 		}
 		private void Drop(string itemName)
@@ -163,13 +167,13 @@ namespace Zork.Common
 			Item itemToDrop = Player.Inventory.FirstOrDefault(item => string.Compare(item.Name, itemName, ignoreCase: true) == 0);
 			if (itemToDrop == null)
 			{
-				Console.WriteLine("You can't see any such thing.");
+				Output.WriteLine("You can't see any such thing.");
 			}
 			else
 			{
 				Player.CurrentRoom.AddItemToInventory(itemToDrop);
 				Player.RemoveItemFromInventory(itemToDrop);
-				Console.WriteLine("Dropped.");
+				Output.WriteLine("Dropped.");
 			}
 		}
 		private static Commands ToCommand(string commandString) => Enum.TryParse(commandString, ignoreCase: true, out Commands result) ? result : Commands.UNKNOWN;
