@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
+using System.IO;
 
 
 namespace Zork.Common
@@ -23,7 +24,6 @@ namespace Zork.Common
 			World = world;
 			Player = new Player(World, startingLocation);
 		}
-
 		public void Run(IInputService input, IOutputService output)
 		{
 			Input = input ?? throw new ArgumentNullException(nameof(input));
