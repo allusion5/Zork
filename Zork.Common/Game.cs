@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
-using System.IO;
 
 
 namespace Zork.Common
 {
 	public class Game
 	{
-		private static int Score { get; set; }
-		private static int Moves { get; set; }
+		public static int Score { get; set; }
+		public static int Moves { get; set; }
 		public World World { get; }
 		[JsonIgnore]
 		public Player Player { get; }
@@ -23,11 +22,6 @@ namespace Zork.Common
 		{
 			World = world;
 			Player = new Player(World, startingLocation);
-		}
-		public static void Start(string gameFileName, IInputService input, IOutputService output)
-		{
-			Game game = JsonConvert.DeserializeObject<Game>(gameFileName);
-			game.Run(input, output);
 		}
 		public void Run(IInputService input, IOutputService output)
 		{

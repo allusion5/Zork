@@ -9,9 +9,8 @@ public class UnityInputService : MonoBehaviour, IInputService
 	[SerializeField]
 	private TMP_InputField InputField;
 
-	void Update()
+	public void ProcessInput()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
 		{
 			string inputString = InputField.text;
 			if (string.IsNullOrWhiteSpace(inputString) == false)
